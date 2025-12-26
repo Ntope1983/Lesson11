@@ -1,4 +1,4 @@
-# immutable.arguments.py
+# If the object is immutable (e.g. int, float, str, tuple), it cannot be changed in place.
 def f(arg):
     print(arg)
     print(f"id arg={id(arg)}")
