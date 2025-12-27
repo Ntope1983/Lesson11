@@ -37,14 +37,21 @@ def check_student(x, y, z):
         return False
 
 
-def print_student_details(x,all,only_names):
-    if all==False and only_names==False:
-
-    for student in students:
-        if student["id"] == int(x):
-            print(
-                f"id: {student["id"]} Name: {student["name"]} Surname: {student["Surname"],} FatherName: {student["FatherName"]}"
-                f"Age: {student["Age"]} Class: {student["Class"]} idCard: {student["idCard"]}")
+def print_student_details(x, all_students):
+    if x != 0:
+        for student in students:
+            if student["id"] == int(x):
+                print(
+                    f"id: {student["id"]} Name: {student["name"]} Surname: {student["Surname"]},FatherName: {student["FatherName"]}"
+                    f"Age: {student["Age"]} Class: {student["Class"]} idCard: {student["idCard"]}")
+    elif all_students:
+        for student in students:
+                print(
+                    f"id: {student["id"]} Name: {student["name"]} Surname: {student["Surname"]},FatherName: {student["FatherName"],}"
+                    f"Age: {student["Age"]}, Class: {student["Class"]}, idCard: {student["idCard"]}")
+    else:
+        for student in students:
+            print(f"id: {student["id"]} Name: {student["name"]} Surname: {student["Surname"]}")
 
 
 def insert_student():
@@ -90,13 +97,18 @@ def main():
 
         elif choose_option == "2":
             menu2 = {1: "Εκτύπωση Μαθητή",
-                    2: "Εκτύπωση όλων των μαθητών",
-                    3: "Εκτύπωση μόνο ονομάτων μαθητών"}
+                     2: "Εκτύπωση όλων των μαθητών",
+                     3: "Εκτύπωση μόνο ονομάτων μαθητών"}
             for option in menu2:
                 print(str(option) + " " + menu2[option], end=" ")
             choose_option2 = input("\nChoose from 1-3")
             if choose_option2 == "1":
-                std_id=input("\nGive the student id")
+                std_id = input("\nGive the student id")
                 print_student_details(std_id)
+            elif choose_option2 == "2":
+                print_student_details(0, True)
+            elif choose_option2 == "3":
+                print_student_details(0, False)
+
 
 main()
