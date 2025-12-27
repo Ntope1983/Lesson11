@@ -31,7 +31,7 @@ def check_student(x, y, z):
     for stud in students:
         if stud["name"] == x and stud["Surname"] == y and stud["FatherName"] == z:
             print("The student you entered exists with these details")
-            print_student_details(stud["id"])
+            print_student_details(stud["id"], False)
             return True
     else:
         return False
@@ -46,12 +46,12 @@ def print_student_details(x, all_students):
                     f"Age: {student["Age"]} Class: {student["Class"]} idCard: {student["idCard"]}")
     elif all_students:
         for student in students:
-                print(
-                    f"id: {student["id"]} Name: {student["name"]} Surname: {student["Surname"]},FatherName: {student["FatherName"],}"
-                    f"Age: {student["Age"]}, Class: {student["Class"]}, idCard: {student["idCard"]}")
+            print(
+                f"id: {student["id"]} Name: {student["name"]} Surname: {student["Surname"]},FatherName: {student["FatherName"],}"
+                f"Age: {student["Age"]}, Class: {student["Class"]}, idCard: {student["idCard"]}")
     else:
         for student in students:
-            print(f"id: {student["id"]} Name: {student["name"]} Surname: {student["Surname"]}")
+            print(f"{student["name"]} {student["FatherName"][0]} {student["Surname"]}")
 
 
 def insert_student():
@@ -82,6 +82,18 @@ def next_id():
     return max({student["id"] for student in students}) + 1
 
 
+def get_valid_input(last_number):
+    while True:
+        try:
+            value = int(input(f"Enter a number (1 to {last_number}): "))
+            if 1 <= value <= last_number:
+                return str(value)
+            else:
+                print(f"Number must be between 1 and {last_number}.")
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
+
 def main():
     menu = {1: "Δημιουργία Εγγραφής",
             2: "Εκτύπωση",
@@ -91,7 +103,7 @@ def main():
     while True:
         for option in menu:
             print(str(option) + " " + menu[option], end=" ")
-        choose_option = input("\nChoose from 1-5")
+        choose_option = get_valid_input(5)
         if choose_option == "1":
             insert_student()
 
@@ -101,10 +113,10 @@ def main():
                      3: "Εκτύπωση μόνο ονομάτων μαθητών"}
             for option in menu2:
                 print(str(option) + " " + menu2[option], end=" ")
-            choose_option2 = input("\nChoose from 1-3")
+            choose_option2 = get_valid_input(3)
             if choose_option2 == "1":
-                std_id = input("\nGive the student id")
-                print_student_details(std_id)
+                std_id = int(input("\nGive the student id"))
+                print_student_details(std_id, False)
             elif choose_option2 == "2":
                 print_student_details(0, True)
             elif choose_option2 == "3":
